@@ -16,7 +16,6 @@ serviceAccount:
   name:
   nameTest:
 #  annotations:
-# test
 
 replicas: 1
 
@@ -51,8 +50,8 @@ livenessProbe:
 
 image:
   repository: grafana/grafana
-  tag: latest
-  sha: ""
+  tag: "latest"
+  sha: "sha256:d1ef39a736c48173d3179ebf6c3f7acc951f7330348a16f6a85c61226efb64aa"
   pullPolicy: IfNotPresent
 
   ## Optionally specify an array of imagePullSecrets.
@@ -63,7 +62,7 @@ image:
   #   - myRegistrKeySecretName
 
 testFramework:
-  enabled: true
+  enabled: false
   image: "bats/bats"
   tag: "v1.1.0"
   imagePullPolicy: IfNotPresent
@@ -93,8 +92,8 @@ extraEmptyDirMounts: []
 
 downloadDashboardsImage:
   repository: curlimages/curl
-  tag: 7.70.0
-  sha: ""
+  tag: "latest"
+  sha: "sha256:a363c513fd921892f895b11b96da6be1e076760c83cc21350487693c11c5ee11"
   pullPolicy: IfNotPresent
 
 downloadDashboards:
@@ -117,10 +116,9 @@ podPortName: grafana
 ## ref: http://kubernetes.io/docs/user-guide/services/
 ##
 service:
-  type: Nodeport
+  type: ClusterIP
   port: 80
   targetPort: 3000
-  nodePort: 31080
     # targetPort: 4181 To be used with a proxy extraContainer
   annotations: {}
   labels: {}
@@ -489,6 +487,7 @@ sidecar:
 #     memory: 50Mi
   # skipTlsVerify Set to true to skip tls verification for kube api calls
   # skipTlsVerify: true
+  enableUniqueFilenames: false
   dashboards:
     enabled: false
     SCProvider: true
